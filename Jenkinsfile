@@ -51,14 +51,16 @@ pipeline {
 }
 
         stage('Verify') {
-            steps {
-                bat '''
-                    kubectl get deployment my-app -n my-app
-                    kubectl get pods -n my-app
-                    kubectl rollout status deployment/my-app -n my-app
-                '''
-            }
-        }
+    steps {
+        bat '''
+            set KUBECONFIG=C:\\Users\\di19d\\.kube\\config
+
+            kubectl get deployment my-app -n my-app
+            kubectl get pods -n my-app
+            kubectl rollout status deployment/my-app -n my-app --timeout=5m
+        '''
+    }
+}
     }
 
     post {
