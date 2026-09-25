@@ -37,14 +37,13 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                bat '''
-                    kubectl set image deployment/my-app my-app=divyap1571/my-app:1 -n my-app
-
-                    kubectl rollout status deployment/my-app -n my-app
-                '''
-            }
-        }
+    steps {
+        bat '''
+            kubectl set image deployment/my-app my-app=divyap1571/my-app:1 -n my-app
+            kubectl rollout status deployment/my-app -n my-app
+        '''
+    }
+}
 
         stage('Verify') {
             steps {
