@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/divyap1571/<YOUR-REPOSITORY>.git'
+                    url: 'https://github.com/divyap1571/Jenkins-ci-cd-pipeline.git'
             }
         }
 
