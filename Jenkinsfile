@@ -29,6 +29,7 @@ pipeline {
                  
                     bat '''
                         docker login -u divyap1571 -p H3110@Divya
+                        docker tag my-app divyap1571/my-app:1
                         docker push divyap1571/my-app:1
                     '''
                 
