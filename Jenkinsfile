@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "divyap1571/myapp"
-        IMAGE_TAG = "${BUILD_NUMBER}"
-    }
-
     stages {
 
         stage('Checkout') {
