@@ -18,7 +18,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
-                bat 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                bat 'docker build -t myapp:latest .'
             }
         }
 
@@ -31,18 +31,12 @@ pipeline {
 
         stage('Docker Push') {
             steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'dockerhub-creds',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )
-                ]) {
+                 
                     bat '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker push ${IMAGE_NAME}:${IMAGE_TAG}
+                        docker push divyap1571/myapp:latest
                     '''
-                }
+                
             }
         }
 
@@ -50,7 +44,7 @@ pipeline {
             steps {
                 bat '''
                     kubectl set image deployment/my-app \
-                    my-app=${IMAGE_NAME}:${IMAGE_TAG} \
+                    my-app=divyap1571/myapp:latest \
                     -n my-app
 
                     kubectl rollout status deployment/my-app -n my-app
