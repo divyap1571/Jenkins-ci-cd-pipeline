@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
-                bat 'docker build -t my-app:latest .'
+                bat 'docker build -t my-app:1 .'
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
                  
                     bat '''
                         echo H3110@Divya | docker login -u divyap1571 -p H3110@Divya
-                        docker push divyap1571/my-app:latest
+                        docker push divyap1571/my-app:1
                     '''
                 
             }
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 bat '''
                     kubectl set image deployment/my-app \
-                    my-app=divyap1571/my-app:latest \
+                    my-app=divyap1571/my-app:1 \
                     -n my-app
 
                     kubectl rollout status deployment/my-app -n my-app
