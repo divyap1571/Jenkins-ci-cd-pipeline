@@ -28,7 +28,7 @@ pipeline {
             steps {
                  
                     bat '''
-                        echo H3110@Divya | docker login -u divyap1571 -p H3110@Divya
+                        docker login -u divyap1571 -p H3110@Divya
                         docker push divyap1571/my-app:1
                     '''
                 
