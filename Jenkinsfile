@@ -18,14 +18,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building application...'
-                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
+                bat 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running automated tests...'
-                sh 'echo "Tests completed successfully"'
+                bat 'echo "Tests completed successfully"'
             }
         }
 
@@ -38,7 +38,7 @@ pipeline {
                         passwordVariable: 'DOCKER_PASS'
                     )
                 ]) {
-                    sh '''
+                    bat '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
                         docker push ${IMAGE_NAME}:${IMAGE_TAG}
                     '''
@@ -48,7 +48,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
+                bat '''
                     kubectl set image deployment/my-app \
                     my-app=${IMAGE_NAME}:${IMAGE_TAG} \
                     -n my-app
@@ -60,7 +60,7 @@ pipeline {
 
         stage('Verify') {
             steps {
-                sh '''
+                bat '''
                     kubectl get deployment my-app -n my-app
                     kubectl get pods -n my-app
                     kubectl rollout status deployment/my-app -n my-app
